@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "VoiceFill",
+  "version": "1.0",
+  "description": "Fill any text field by talking. Hold Alt+Shift+V, speak, release.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "style.css"
+      ]
+    }
+  ],
+  "action": {
+    "default_title": "VoiceFill: hold Alt+Shift+V and speak into any text field"
+  },
+  "icons": {
+    "48": "icons/icon48.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "voicefill@hackclub.local"
+    }
+  }
+}
+
