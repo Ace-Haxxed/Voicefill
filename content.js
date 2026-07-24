@@ -6,6 +6,7 @@
   let isListening = false;
   let targetEl = null;
   let finalTranscript = "";
+  let liveTranscript = ""; //used to just be finalTranscript apparently this will help!
   let indicator = null;
 
   function supported() {
@@ -110,7 +111,8 @@
           interim += transcript;
         }
       }
-      showIndicator((finalTranscript + interim).trim() || "Listening…");
+      liveTranscript = (finalTranscript + interim).trim();
+      showIndicator(liveTranscript || "Listening..."); // used to be this: showIndicator((finalTranscript + interim).trim() || "Listening…"); in stead of line 114 and 115 hopefully this helps!
     };
 
     recognition.onerror = (e) => {
@@ -146,7 +148,7 @@
     }
     hideIndicator();
 
-    const text = finalTranscript.trim();
+    const text = liveTranscript.trim();
     if (text && targetEl) {
       
       const cleaned = cleanupText(text);
@@ -182,7 +184,7 @@
   window.addEventListener("keyup", (e) => {
     keysDown.delete(e.code);
     if (e.code === "KeyV" || e.code === "AltLeft" || e.code === "AltRight" || e.code === "ShiftLeft" || e.code === "ShiftRight") {
-      if (isListening) stopListening();
+      if (isListening && supported()) stopListening();
     }
   });
 
